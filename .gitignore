@@ -1,0 +1,12 @@
+# direnv
+.direnv/
+.envrc.local
+
+# nix
+result
+result-*
+
+node_modules
+dist
+
+private_test_data/
