@@ -19,3 +19,10 @@ salespeople to open all the tabs in that folder at once, letting them see stock
 for as many products as there are in the lineup.
 
 ![Screenshot of the website, showing the inputs on the left and lots of successful searches on the right](site-demo.png)
+
+## License
+
+All rights reserved - no license is offered for this software at this time. The
+source code is available and public for the purposes of feedback and review.
+Reuse and modification is not allowed, except as required by the GitHub terms
+and conditions.
