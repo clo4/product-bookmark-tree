@@ -616,7 +616,13 @@ const SearchResult: React.FC<
 const SearchResultList: React.FC<
   { items: ProductAnalysis[]; deleteItem: (id: string) => void }
 > = ({ items, deleteItem }) => {
-  const hasCompletedSearches = items.some((item) => item.status === "complete");
+  let totalCompleted = 0;
+  for (const item of items) {
+    if (item.status === "complete") {
+      totalCompleted += 1;
+    }
+  }
+  const hasCompletedSearches = totalCompleted > 0;
 
   const handleDownload = () => {
     const all: Record<string, string[]> = {};
@@ -629,8 +635,12 @@ const SearchResultList: React.FC<
     const tree = groupByAttributes(all);
     const bookmarks = groupToBookmarksHTML(tree);
 
+    const fileName = totalCompleted === items.length
+      ? "Products App Bookmarks.html"
+      : `Products App Bookmarks (${totalCompleted} of ${items.length}).html`;
+
     download({
-      fileName: "products-app-bookmarks.html",
+      fileName,
       mimeType: "text/html",
       text: bookmarks,
     });
