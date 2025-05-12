@@ -464,27 +464,26 @@ ${recurse(group, 0)}
 
 // MARK: React App
 
-const DeleteIcon: React.FC = () => (
+const DeleteIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg
     width="20"
     height="20"
     viewBox="0 0 20 20"
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="size-4 fill-black/50 hover:fill-black"
+    className={className}
   >
     <path d="M16.7384 1.06071C17.3242 0.474966 18.2737 0.474968 18.8595 1.06071C19.4453 1.64648 19.4452 2.59601 18.8595 3.1818L12.0812 9.96012L18.7384 16.6173C19.324 17.2032 19.3241 18.1527 18.7384 18.7384C18.1527 19.3242 17.2031 19.324 16.6173 18.7384L9.96008 12.0812L3.30286 18.7384C2.71705 19.324 1.76746 19.3241 1.18176 18.7384C0.596101 18.1527 0.596247 17.2031 1.18176 16.6173L7.83899 9.96012L1.06067 3.1818C0.474952 2.59601 0.474906 1.64647 1.06067 1.06071C1.64643 0.474944 2.59597 0.47499 3.18176 1.06071L9.96008 7.83903L16.7384 1.06071Z" />
   </svg>
 );
 
-const SpinnerIcon: React.FC = () => (
+const SpinnerIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg
     width="24"
     height="24"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="size-5 animate-spin text-black/70"
+    className={className}
   >
     <circle
       cx="12"
@@ -585,7 +584,7 @@ const SearchResult: React.FC<
     : 0;
   return (
     <div className="w-full border-black/10 border rounded-lg h-20 flex items-center px-4">
-      <div className="w-full">
+      <div>
         <div className="font-medium">{item.query}</div>
         <div className="text-sm text-gray-700">
           {item.status === "pending"
@@ -597,17 +596,18 @@ const SearchResult: React.FC<
             : "Processing failed"}
         </div>
       </div>
-      <div className="w-5 flex justify-center items-center">
+      <div className="h-12 w-12 ml-auto flex justify-center items-center">
         {item.status !== "pending"
           ? (
             <button
               onClick={() => deleteItem(item.id)}
               aria-label="Delete results"
+              className="h-full w-full hover:bg-zinc-100 fill-black/50 hover:fill-black/70 transition-colors rounded-lg"
             >
-              <DeleteIcon />
+              <DeleteIcon className="size-4 mx-auto" />
             </button>
           )
-          : <SpinnerIcon />}
+          : <SpinnerIcon className="size-4 animate-spin text-black/70" />}
       </div>
     </div>
   );
@@ -647,7 +647,7 @@ const SearchResultList: React.FC<
   };
 
   return (
-    <div className="w-full flex flex-col items-center md:overflow-y-auto p-8">
+    <div className="w-full flex flex-col items-center md:overflow-y-auto p-8 lg:p-12">
       {items.length === 0
         ? (
           <div className="opacity-75 max-w-lg space-y-4 text-center">
@@ -660,7 +660,7 @@ const SearchResultList: React.FC<
           </div>
         )
         : (
-          <div className="space-y-4 mb-6 w-full lg:max-w-xl">
+          <div className="space-y-4 mb-6 w-full lg:max-w-lg">
             {items.map((item) => (
               <SearchResult key={item.id} item={item} deleteItem={deleteItem} />
             ))}
@@ -712,9 +712,9 @@ const SearchForm: React.FC<{
   };
 
   return (
-    <div className="w-full p-8 flex flex-col md:relative bg-[#f5f5f5]">
+    <div className="w-full p-8 lg:p-12 flex flex-col md:relative bg-[#f5f5f5]">
       {/* Right alignment */}
-      <div className="w-full max-w-xl ml-auto flex flex-col h-full">
+      <div className="w-full md:max-w-xl ml-auto flex flex-col h-full">
         <div className="flex-grow flex flex-col justify-center">
           {/* Text introduction */}
           <div className="mb-8 space-y-4 leading-8">
@@ -816,7 +816,6 @@ const App: React.FC = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
 
-  // This function
   const handleSearch = async (query: string, apiKey: string) => {
     setIsSearching(true);
     const id = Date.now().toString();
