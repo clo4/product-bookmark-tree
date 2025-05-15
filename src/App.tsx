@@ -582,18 +582,28 @@ const SearchResult: React.FC<
   const totalProducts = item.status === "complete"
     ? Object.keys(item.products).length
     : 0;
+
+  let status: string;
+
+  switch (item.status) {
+    case "pending":
+      status = "Processing...";
+      break;
+    case "failed":
+      status = "Processing failed";
+      break;
+    case "complete":
+      status = `Success, ${totalProducts} product${
+        totalProducts === 1 ? "" : "s"
+      }`;
+  }
+
   return (
     <div className="w-full border-black/10 border rounded-lg h-20 flex items-center px-4">
       <div>
         <div className="font-medium">{item.query}</div>
         <div className="text-sm text-gray-700">
-          {item.status === "pending"
-            ? "Processing..."
-            : item.status === "complete"
-            ? `Completed, ${totalProducts} product${
-              totalProducts === 1 ? "" : "s"
-            } found`
-            : "Processing failed"}
+          {status}
         </div>
       </div>
       <div className="h-12 w-12 ml-auto flex justify-center items-center">
