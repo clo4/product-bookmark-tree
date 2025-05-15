@@ -722,7 +722,7 @@ const SearchForm: React.FC<{
   };
 
   return (
-    <div className="w-full p-8 lg:p-12 flex flex-col md:relative bg-[#f5f5f5]">
+    <div className="w-full p-8 lg:p-12 flex flex-col md:relative bg-[#f5f5f5] border-b border-b-zinc-200 md:border-b-0 md:border-r md:border-r-zinc-200">
       {/* Right alignment */}
       <div className="w-full md:max-w-xl ml-auto flex flex-col h-full">
         <div className="flex-grow flex flex-col justify-center">
