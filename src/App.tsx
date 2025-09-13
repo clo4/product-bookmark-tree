@@ -316,7 +316,7 @@ async function gptProcessProducts(
   init: LLMMessageInit,
 ): Promise<Result> {
   const response = await client.responses.create({
-    model: "gpt-4.1-mini",
+    model: "gpt-5-mini",
     input: [
       {
         role: "system",
@@ -340,8 +340,6 @@ async function gptProcessProducts(
     text: { format: { type: "json_object" } },
     reasoning: {},
     tools: [],
-    temperature: 0.2,
-    top_p: 0.1,
     store: true,
   });
 
